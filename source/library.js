@@ -6,8 +6,8 @@ var webdriver = require('selenium-webdriver'),
 
 
 var driver = new webdriver.Builder().forBrowser('chrome').build();
-
 driver.manage().window().maximize();
+driver.manage().setTimeouts({ implicit: 5000 })
 
 driver.get('https://library-app.firebaseapp.com/');
 
@@ -29,7 +29,8 @@ driver.findElement(By.className('btn-primary'))
         console.log('2', err)
     })
 
-driver.sleep(3000)
+// use setTimeouts instead
+// driver.sleep(3000)
 
 driver.findElement(By.css('.alert-success'))
     .getText()
