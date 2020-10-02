@@ -14,17 +14,25 @@ driver.manage().window().maximize();
 
 driver.get('https://library-app.firebaseapp.com/');
 
-driver.findElement(By.css('input'))
+var submitButton = driver.findElement(By.className('btn-primary'))
+var input = driver.findElement(By.css('input'))
+
+input
     .sendKeys('lcd@email.com')
     .then(() => {
-        console.log('typing lcd@email.com')
+        console.log('typing ...')
     })
     .catch(err => {
         console.log('1', err)
     })
 
-driver.findElement(By.className('btn-primary'))
-    .click()
+driver.wait(until.elementIsEnabled(submitButton), TIMEOUT)
+    .then(button => {
+        return input.getAttribute('value').then(txt => {
+            console.log('submit email', txt)
+            return button.click()
+        })
+    })
     .then(() => {
         console.log('press the button')
     })
