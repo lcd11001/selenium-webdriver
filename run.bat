@@ -7,4 +7,5 @@ set FIREFOX_DRIVER_DIR=%CURR_DIR%node_modules\geckodriver
 
 set PATH=%PATH%;%CHROME_DRIVER_DIR%;%FIREFOX_DRIVER_DIR%
 
+cls
 call node %CURR_DIR%source\library.js
