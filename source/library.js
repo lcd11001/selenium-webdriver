@@ -11,30 +11,34 @@ driver.manage().window().maximize();
 
 driver.get('https://library-app.firebaseapp.com/');
 
-driver.findElement(By.className('ember-text-field'))
-    .then(ele => {
-        console.log('found input')
+driver.findElement(By.css('input'))
+    .sendKeys('lcd@email.com')
+    .then(() => {
+        console.log('typing lcd@email.com')
     })
     .catch(err => {
         console.log('1', err)
     })
 
 driver.findElement(By.className('btn-primary'))
-    .then(ele => {
-        console.log('found button')
-        return ele.getText()
-    })
-    .then(text => {
-        console.log('button text', text)
+    .click()
+    .then(() => {
+        console.log('press the button')
     })
     .catch(err => {
         console.log('2', err)
     })
 
-// driver.findElement(By.css('alert-success'))
-// .catch(err => {
-//     console.log('3', err)
-// })
+driver.sleep(3000)
+
+driver.findElement(By.css('.alert-success'))
+    .getText()
+    .then(txt => {
+        console.log('alert success with text ' + txt)
+    })
+    .catch(err => {
+        console.log('3', err)
+    })
 
 // driver.findElements(By.className('nav-link'))
 driver.findElements(By.css('ul li'))
