@@ -3,11 +3,14 @@ var webdriver = require('selenium-webdriver'),
     By = webdriver.By,
     until = webdriver.until;
 
-
+const TIMEOUT = 5000
+const TIMEOUT_MSG = 'time out for finding element'
 
 var driver = new webdriver.Builder().forBrowser('chrome').build();
 driver.manage().window().maximize();
-driver.manage().setTimeouts({ implicit: 5000 })
+
+// implicit wait
+// driver.manage().setTimeouts({ implicit: TIMEOUT })
 
 driver.get('https://library-app.firebaseapp.com/');
 
@@ -29,10 +32,22 @@ driver.findElement(By.className('btn-primary'))
         console.log('2', err)
     })
 
+/*
+// implicit wait
 // use setTimeouts instead
 // driver.sleep(3000)
-
 driver.findElement(By.css('.alert-success'))
+    .getText()
+    .then(txt => {
+        console.log('alert success with text ' + txt)
+    })
+    .catch(err => {
+        console.log('3', err)
+    })
+*/
+
+// explicit wait
+driver.wait(until.elementLocated(By.css('.alert-success')), TIMEOUT, TIMEOUT_MSG)
     .getText()
     .then(txt => {
         console.log('alert success with text ' + txt)
@@ -60,5 +75,5 @@ driver.findElements(By.css('ul li'))
         console.log('4', err)
     })
 
-driver.sleep(10000);
+// driver.sleep(10000);
 driver.quit();
